@@ -22,4 +22,16 @@ class Address
         this.zip = zip;
         this.phone = phone;
     }
+
+    static Exception generateException()
+    {
+        try {
+            throw new RuntimeException();
+        }
+        catch (Exception e)
+
+        {
+            return e;
+        }
+    }
 }

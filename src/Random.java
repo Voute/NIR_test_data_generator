@@ -1,24 +1,22 @@
 import java.util.Date;
 
-public final class Random {
+final class Random {
 
     static long genRandomLong(long min, long max)
     {
-        return (long)( (Math.random() * max) + min);
+        return (long)( (Math.random() * (max - min)) + min);
     }
 
     static int genRandomInt(int min, int max)
     {
-        return (int)( (Math.random() * max) + min);
+        return (int)( (Math.random() * (max - min)) + min);
     }
 
     static Date genRandomDate(Date minDate, Date maxDate)
     {
         long max = maxDate.getTime();
         long min = minDate.getTime();
-        Date result = new Date( (long)( (Math.random() * ( max - min )) + min)
-        );
-        return result;
+        return new Date( (long)( (Math.random() * ( max - min )) + min));
     }
 
 }
