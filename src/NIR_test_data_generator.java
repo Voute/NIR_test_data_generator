@@ -1,12 +1,9 @@
 import java.sql.*;
-import java.util.Date;
-import java.util.HashMap;
 
 public class NIR_test_data_generator implements Runnable
 {
 
-    static final int ITEMS_TO_GENERATE = 100;
-    static final int CUSTOMER_MAX = 500;
+    static final int ITEMS_TO_GENERATE = 500;
     static final String DB_URL = "jdbc:postgresql://localhost:5432/kis_task6";
     static final String DB_USER = "postgres";
     static final String DB_PASS = "postgres";
