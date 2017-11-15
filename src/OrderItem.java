@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.Date;
 
 class OrderItem
 {
@@ -10,15 +11,18 @@ class OrderItem
     long order_id;
     long item_id;
     int quantity;
+    Date created_when;
 
     private OrderItem(long order_id,
                     long item_id,
-                    int quantity
+                    int quantity,
+                      Date created_when
             )
     {
         this.order_id = order_id;
         this.item_id = item_id;
         this.quantity = quantity;
+        this.created_when = created_when;
     }
 
     static OrderItem generateOrderItem(long order_id, DBclient client)
@@ -34,7 +38,7 @@ class OrderItem
             System.out.println("Randomizing an item id");
             long itemId = Random.genRandomLong(MIN_ITEM_ID, maxItemId);
             int quantity = Random.genRandomInt(MIN_QUANTITY, MAX_QUANTITY);
-            return new OrderItem(order_id, itemId, quantity);
+            return new OrderItem(order_id, itemId, quantity, new Date());
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

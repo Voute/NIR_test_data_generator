@@ -38,16 +38,17 @@ class DBclient
     {
 //        Script example:
 //        INSERT INTO public.email(
-//            customer_id, email)
+//            customer_id, email, created_when)
 //        VALUES (?, ?);
-        String query = "insert into public.email(customer_id, email) " +
+        String query = "insert into public.email(customer_id, email, created_when) " +
                 "VALUES (" +
                 email.customer_id + "," +
-                addQuotes(email.email) +
-                ");";
+                addQuotes(email.email) + "," +
+                "?);";
         System.out.println("Query to execute:");
         System.out.println(query);
         PreparedStatement statement = connection.prepareStatement(query);
+        statement.setDate(1, new java.sql.Date(email.created_when.getTime()));
         return statement.executeUpdate();
     }
 
@@ -74,20 +75,21 @@ class DBclient
     {
 //        Script example:
 //        INSERT INTO public.address(
-//            customer_id, street_and_building, building, city, country, zip, phone)
+//            customer_id, street_and_building, building, city, country, zip, phone, created_when)
 //        VALUES (?, ?, ?, ?, ?, ?, ?);
-        String query = "insert into public.address(customer_id, street_and_building, city, country, zip, phone) " +
+        String query = "insert into public.address(customer_id, street_and_building, city, country, zip, phone, created_when) " +
                 "VALUES (" +
                 address.customer_id + "," +
                 addQuotes(address.street_and_building) + "," +
                 addQuotes(address.city) + "," +
                 addQuotes(address.country) + "," +
                 addQuotes(address.zip) + "," +
-                addQuotes(address.phone) +
-                ");";
+                addQuotes(address.phone) + "," +
+                "?);";
         System.out.println("Query to execute:");
         System.out.println(query);
         PreparedStatement statement = connection.prepareStatement(query);
+        statement.setDate(1, new java.sql.Date(address.created_when.getTime()));
         return statement.executeUpdate();
     }
 
@@ -141,17 +143,18 @@ class DBclient
     {
 //        Script example:
 //        INSERT INTO public.order_item(
-//            order_id, item_id, quantity)
+//            order_id, item_id, quantity, created_when)
 //        VALUES (?, ?, ?);
-        String query = "insert into public.order_item(order_id, item_id, quantity) " +
+        String query = "insert into public.order_item(order_id, item_id, quantity, created_when) " +
                 "VALUES (" +
                 orderItem.order_id + "," +
                 orderItem.item_id + "," +
-                orderItem.quantity +
-                ");";
+                orderItem.quantity + "," +
+                "?);";
         System.out.println("Query to execute:");
         System.out.println(query);
         PreparedStatement statement = connection.prepareStatement(query);
+        statement.setDate(1, new java.sql.Date(orderItem.created_when.getTime()));
         return statement.executeUpdate();
     }
 

@@ -77,6 +77,8 @@ class Customer
             System.out.println("[name: " + customerFields[0] + ", lastname: " + customerFields[1] + " ... ]");
 
             long customer_id = CUSTOMER_ID_MASK + lineToRead;
+            Date created_when = Random.genRandomDate(new GregorianCalendar(2017, 0, 1).getTime(),
+                    new GregorianCalendar(2017, 11, 31).getTime());
 
             System.out.println("Creating  an address");
             Address address = new Address(customer_id,
@@ -84,14 +86,13 @@ class Customer
                     customerFields[4],
                     customerFields[6],
                     customerFields[7],
-                    customerFields[8]
+                    customerFields[8],
+                    created_when
             );
 //                System.out.println("Address is " + address.toString());
             System.out.println("Creating a email");
-            Email email = new Email(customer_id, customerFields[10]);
+            Email email = new Email(customer_id, customerFields[10], created_when);
 //                System.out.println("Email is " + email.toString());
-            Date created_when = Random.genRandomDate(new GregorianCalendar(2017, 0, 1).getTime(),
-                                new GregorianCalendar(2017, 11, 31).getTime());
             Order[] orders = generateOrders(client, customer_id, created_when);
 
             return new Customer(customer_id,

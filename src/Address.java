@@ -1,3 +1,5 @@
+import java.util.Date;
+
 class Address
 {
     long customer_id;
@@ -6,13 +8,15 @@ class Address
     String country;
     String zip;
     String phone;
+    Date created_when;
 
     Address(long customer_id,
             String street_and_building,
             String city,
             String country,
             String zip,
-            String phone
+            String phone,
+            Date created_when
     )
     {
         this.customer_id = customer_id;
@@ -21,6 +25,7 @@ class Address
         this.country = country;
         this.zip = zip;
         this.phone = phone;
+        this.created_when = created_when;
     }
 
     static Exception generateException()
