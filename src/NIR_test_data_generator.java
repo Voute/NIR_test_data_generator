@@ -1,4 +1,7 @@
 import java.sql.*;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public class NIR_test_data_generator implements Runnable
 {
@@ -7,6 +10,8 @@ public class NIR_test_data_generator implements Runnable
     static final String DB_URL = "jdbc:postgresql://localhost:5432/nir_test_data";
     static final String DB_USER = "postgres";
     static final String DB_PASS = "postgres";
+    static final Date OBJECTS_START_DATE = new GregorianCalendar(2017, 0, 1).getTime();
+    static Date current_date;
 
     DBclient client;
 
@@ -14,6 +19,8 @@ public class NIR_test_data_generator implements Runnable
     {
         System.out.println("Creating a generator");
         NIR_test_data_generator generator = new NIR_test_data_generator();
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        NIR_test_data_generator.current_date = new Date();
 
         generator.run();
 

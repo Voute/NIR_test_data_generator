@@ -25,7 +25,7 @@ class OrderItem
         this.created_when = created_when;
     }
 
-    static OrderItem generateOrderItem(long order_id, DBclient client)
+    static OrderItem generateOrderItem(long order_id, DBclient client, Date order_created_when)
     {
         System.out.println("Getting a max item id");
         try {
@@ -38,7 +38,7 @@ class OrderItem
             System.out.println("Randomizing an item id");
             long itemId = Random.genRandomLong(MIN_ITEM_ID, maxItemId);
             int quantity = Random.genRandomInt(MIN_QUANTITY, MAX_QUANTITY);
-            return new OrderItem(order_id, itemId, quantity, new Date());
+            return new OrderItem(order_id, itemId, quantity, order_created_when);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

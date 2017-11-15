@@ -77,8 +77,8 @@ class Customer
             System.out.println("[name: " + customerFields[0] + ", lastname: " + customerFields[1] + " ... ]");
 
             long customer_id = CUSTOMER_ID_MASK + lineToRead;
-            Date created_when = Random.genRandomDate(new GregorianCalendar(2017, 0, 1).getTime(),
-                    new GregorianCalendar(2017, 11, 31).getTime());
+            Date created_when = Random.genRandomDate(NIR_test_data_generator.OBJECTS_START_DATE,
+                    NIR_test_data_generator.current_date);
 
             System.out.println("Creating  an address");
             Address address = new Address(customer_id,

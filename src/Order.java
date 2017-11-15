@@ -53,13 +53,27 @@ class Order
             int status = randomizeStatus(client);
             System.out.println("Status = " + status);
             System.out.println("Randomizing a created_when date");
-            Date created_when = Random.genRandomDate(customer_created_when, new Date(customer_created_when.getTime() + MAX_DIFF_CREATED_WITH_CUST_CREATED_WHEN_MILLIS));
+
+            Date max_creation_date = new Date(customer_created_when.getTime() + MAX_DIFF_CREATED_WITH_CUST_CREATED_WHEN_MILLIS);
+            if (max_creation_date.getTime() > NIR_test_data_generator.current_date.getTime())
+            {
+                max_creation_date = NIR_test_data_generator.current_date;
+            }
+
+            Date created_when = Random.genRandomDate(customer_created_when, max_creation_date);
             System.out.println("Created_when = " + created_when.toString());
             System.out.println("Randomizing a modified_when date");
-            Date modified_when = Random.genRandomDate(created_when, new Date(customer_created_when.getTime() + MAX_DIFF_MODIFIED_WITH_CREATED_WHEN_MILLIS));
+
+            Date max_modification_date = new Date(customer_created_when.getTime() + MAX_DIFF_MODIFIED_WITH_CREATED_WHEN_MILLIS);
+            if (max_modification_date.getTime() > NIR_test_data_generator.current_date.getTime())
+            {
+                max_modification_date = NIR_test_data_generator.current_date;
+            }
+
+            Date modified_when = Random.genRandomDate(created_when, max_modification_date);
             System.out.println("Modified_when = " + modified_when.toString());
             System.out.println("Generating order items");
-            OrderItem[] items = generateOrderItems(orderId, client);
+            OrderItem[] items = generateOrderItems(orderId, client, created_when);
             Error[] errors = generateErrors(client, orderId, created_when);
 
             return new Order(orderId,
@@ -77,13 +91,13 @@ class Order
         }
     }
 
-    static OrderItem[] generateOrderItems(long order_id, DBclient client)
+    static OrderItem[] generateOrderItems(long order_id, DBclient client, Date order_created_when)
     {
         int itemsSize = Random.genRandomInt(MIN_ORDER_ITEMS, MAX_ORDER_ITEMS);
         OrderItem[] result = new OrderItem[itemsSize];
         for (int i = 0; i < itemsSize; i++)
         {
-            result[i] = OrderItem.generateOrderItem(order_id, client);
+            result[i] = OrderItem.generateOrderItem(order_id, client, order_created_when);
         }
         return result;
     }
